@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AKB Training Lounge — Americana Kitchen &amp; Bar</title>
+<link rel="icon" href="assets/akb_icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="akb.css">
+<style>
+/* ---------- index-only: hero, stats, persona grid, cafe quotes, steps ---------- */
+.hero{background:var(--akb-black);color:var(--akb-cream);text-align:center;padding:112px 0 104px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(191,146,97,.14),transparent 62%);pointer-events:none}
+.hero .inner{position:relative;z-index:2}
+/* lead line — echoes the restaurant's "Gather. Toast. Celebrate." */
+.hero .lead{font-family:var(--font-display);font-size:clamp(1.05rem,2vw,1.4rem);font-weight:400;letter-spacing:.42em;text-transform:uppercase;color:var(--akb-gold);margin-bottom:26px;text-indent:.42em}
+.hero h1{color:var(--akb-cream);font-size:clamp(2.7rem,6.6vw,4.6rem);font-weight:700;margin-bottom:8px}
+.hero h1 em{font-style:italic;font-weight:300;color:var(--akb-gold);display:block}
+.hero p{max-width:620px;margin:24px auto 0;color:rgba(241,241,241,.8);font-size:1.03rem;font-weight:300}
+.hero-cta{display:flex;gap:16px;justify-content:center;margin-top:38px;flex-wrap:wrap}
+
+.stats{background:var(--akb-cream);padding:40px 0;border-bottom:1px solid var(--akb-grey)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
+.stat .n{font-family:var(--font-display);font-size:2.5rem;font-weight:700;color:var(--akb-gold);line-height:1}
+.stat .l{font-size:.68rem;letter-spacing:1.8px;text-transform:uppercase;color:var(--akb-text);margin-top:8px}
+
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.card p{font-size:.93rem;margin-bottom:20px}
+.card h3{margin-bottom:12px}
+.card .tags{margin-bottom:24px}
+
+.personas{background:var(--akb-cream)}
+.p-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--akb-grey);border:1px solid var(--akb-grey)}
+.p-cell{background:var(--akb-white);padding:34px 26px;text-align:center;transition:background .25s;text-decoration:none;display:block}
+.p-cell:hover{box-shadow:inset 0 -3px 0 var(--akb-gold)}
+.p-cell .ic{font-size:1.6rem;margin-bottom:12px;display:block}
+.p-cell h4{font-size:1.12rem;margin-bottom:6px}
+.p-cell span.dept{font-size:.72rem;letter-spacing:1.4px;text-transform:uppercase;color:var(--akb-gold)}
+.p-cell p{font-size:.86rem;margin-top:9px;color:var(--akb-text)}
+
+.cafe{background:var(--akb-black);color:var(--akb-cream)}
+.cafe h2{color:var(--akb-cream)}
+.cafe .sec-head p{color:rgba(241,241,241,.78)}
+.q-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-bottom:40px}
+.q{border:1px solid rgba(191,146,97,.34);padding:26px 28px;background:rgba(255,255,255,.03)}
+.q .who{font-size:.64rem;letter-spacing:1.8px;text-transform:uppercase;color:var(--akb-gold);margin-bottom:10px}
+.q p{font-family:var(--font-display);font-size:1.16rem;font-weight:400;font-style:italic;color:var(--akb-cream);line-height:1.5}
+.cafe-cta{text-align:center}
+
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+.step{text-align:center}
+.step .circ{width:60px;height:60px;border:1px solid var(--akb-gold);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-family:var(--font-display);font-size:1.5rem;font-weight:700;color:var(--akb-gold)}
+.step h3{font-size:1.2rem;margin-bottom:10px}
+.step p{font-size:.92rem}
+
+@media(max-width:900px){
+  .cards,.steps,.p-grid,.q-grid{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:repeat(2,1fr);gap:28px}
+  .hero{padding:78px 0 70px}
+}
+@media(max-width:520px){
+  /* keep "Gather. Learn. Serve Better." on one line — the three beats must read together */
+  .hero .lead{font-size:.82rem;letter-spacing:.22em;text-indent:.22em}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#sessions">Skip to content</a>
+
+<div class="topbar">Internal Staff Resource &nbsp;·&nbsp; <b>AKB Training Lounge</b> &nbsp;·&nbsp; East Windsor, NJ</div>
+
+<nav>
+  <div class="wrap nav-in">
+    <img src="assets/akb_logo_white.png" alt="Americana Kitchen &amp; Bar">
+    <ul class="nav-links">
+      <li><a href="sessions.html">Sessions</a></li>
+      <li><a href="personas.html">Personas</a></li>
+      <li><a href="cafe.html">Question Café</a></li>
+      <li><a href="intake.html">Intake</a></li>
+      <li><a href="#start">Get Started</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap inner">
+    <div class="lead">Gather. Learn. Serve Better.</div>
+    <h1>Where the AKB Team<em>Masters AI Together</em></h1>
+    <p>A professional learning space for the Americana Kitchen &amp; Bar team — build real prompting skills, create department personas, and bring thirty years of hospitality know-how into every tool we use.</p>
+    <div class="hero-cta">
+      <a href="sessions.html" class="btn btn-gold">View All Sessions</a>
+      <a href="cafe.html" class="btn btn-ghost">Question Café</a>
+    </div>
+  </div>
+</header>
+
+<div class="stats">
+  <div class="wrap stats-grid">
+    <div class="stat"><div class="n">3</div><div class="l">Sessions</div></div>
+    <div class="stat"><div class="n">1 hr</div><div class="l">Per Session</div></div>
+    <div class="stat"><div class="n">6</div><div class="l">AKB Personas</div></div>
+    <div class="stat"><div class="n">15%</div><div class="l">Profit Goal · Service</div></div>
+  </div>
+</div>
+
+<section id="sessions">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Fresh Ideas. Classic Inspiration.</div>
+      <h2>This Season's Sessions</h2>
+      <div class="rule center"></div>
+      <p>Three focused one-hour sessions that build AI fluency from the ground up — every example drawn from real Americana service, kitchen, and back-office work.</p>
+    </div>
+    <div class="cards">
+      <article class="card">
+        <div class="num">01</div>
+        <div class="kicker">Session One</div>
+        <h3>Anatomy of a Prompt</h3>
+        <p>Break down what makes a great prompt for restaurant work. Learn the four elements — Role, Context, Task, Format — and pick the right tool for the job.</p>
+        <div class="tags"><span class="tag">Prompt Structure</span><span class="tag">ChatGPT</span><span class="tag">Claude</span><span class="tag">Gemini</span></div>
+        <a href="sessions.html#session-1" class="more">View Session →</a>
+      </article>
+      <article class="card">
+        <div class="num">02</div>
+        <div class="kicker">Session Two</div>
+        <h3>AI Personas</h3>
+        <p>Turn a generic tool into an Americana expert. Build reusable personas for your exact role — kitchen, floor, office, or the café build-out.</p>
+        <div class="tags"><span class="tag">Persona Building</span><span class="tag">AKB Context</span><span class="tag">Claude Projects</span><span class="tag">Custom GPTs</span></div>
+        <a href="sessions.html#session-2" class="more">View Session →</a>
+      </article>
+      <article class="card">
+        <div class="num">03</div>
+        <div class="kicker">Session Three</div>
+        <h3>The Prompt Ladder</h3>
+        <p>Put it together in a friendly competition. Climb from a bare-bones prompt to an expert, persona-powered one across four rounds of real AKB scenarios.</p>
+        <div class="tags"><span class="tag">Hands-On</span><span class="tag">Team Rounds</span><span class="tag">Live Scoring</span><span class="tag">Full Build</span></div>
+        <a href="sessions.html#session-3" class="more">View Session →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="personas" id="personas">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Built For Every Station</div>
+      <h2>Six Americana Personas</h2>
+      <div class="rule center"></div>
+      <p>Copy one into Claude or ChatGPT and it answers like a colleague who already knows our menu, our margins, and our standards.</p>
+    </div>
+    <div class="p-grid">
+      <a class="p-cell" href="personas.html#kitchen"><span class="ic">🔪</span><h4>Chef Assistant</h4><span class="dept">Kitchen</span><p>Menu development, food cost, prep training, plating standards.</p></a>
+      <a class="p-cell" href="personas.html#foh"><span class="ic">🍷</span><h4>Service Mentor</h4><span class="dept">Front of House</span><p>Guest recovery, wine upsells, shift briefings, floor training.</p></a>
+      <a class="p-cell" href="personas.html#mgmt"><span class="ic">📋</span><h4>Operations Manager</h4><span class="dept">Management</span><p>Scheduling, coverage, performance feedback, staff comms.</p></a>
+      <a class="p-cell" href="personas.html#acct"><span class="ic">📊</span><h4>Finance Analyst</h4><span class="dept">Accounting</span><p>Cost variance, forecasting, menu pricing, period close.</p></a>
+      <a class="p-cell" href="personas.html#media"><span class="ic">📣</span><h4>Marketing Lead</h4><span class="dept">Media &amp; Comms</span><p>Social posts, events calendar, review replies, brand voice.</p></a>
+      <a class="p-cell" href="personas.html#pm"><span class="ic">🧱</span><h4>Project Manager</h4><span class="dept">Café Build-Out</span><p>Timelines, vendor coordination, budget tracking, status notes.</p></a>
+    </div>
+  </div>
+</section>
+
+<section class="cafe" id="cafe">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Community Space</div>
+      <h2>The Question Café</h2>
+      <div class="rule center"></div>
+      <p>Have a question about AI and your Americana work? Post it. The team answers, and the best answers get featured.</p>
+    </div>
+    <div class="q-grid">
+      <div class="q"><div class="who">Media &amp; Communications</div><p>“What's the best way to use AI to answer a tough Google review without sounding defensive?”</p></div>
+      <div class="q"><div class="who">Accounting</div><p>“Can I keep our chart of accounts in a Claude Project so I stop re-pasting it every close?”</p></div>
+      <div class="q"><div class="who">Front of House</div><p>“How do I build a prompt that writes wine pairing notes for the Spectator list?”</p></div>
+      <div class="q"><div class="who">Café Build-Out</div><p>“What's a good prompt for turning vendor emails into a clean weekly status update?”</p></div>
+    </div>
+    <div class="cafe-cta"><a href="cafe.html" class="btn btn-gold">Enter the Café</a></div>
+  </div>
+</section>
+
+<section id="start">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Getting Started</div>
+      <h2>How the Training Lounge Works</h2>
+      <div class="rule center"></div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="circ">1</div><h3>Pick a Session</h3><p>Three one-hour sessions, each self-contained. No prior AI experience needed for Session One.</p></div>
+      <div class="step"><div class="circ">2</div><h3>Take the Materials</h3><p>Every session includes a deck, a printable guide, and prompts you can use on your next shift.</p></div>
+      <div class="step"><div class="circ">3</div><h3>Ask in the Café</h3><p>Post your question afterward. Your Americana colleagues answer, and we feature the best each week.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <img src="assets/akb_logo_white.png" alt="Americana Kitchen &amp; Bar">
+    <ul class="f-links">
+      <li><a href="sessions.html">Sessions</a></li>
+      <li><a href="personas.html">Personas</a></li>
+      <li><a href="cafe.html">Question Café</a></li>
+      <li><a href="intake.html">Intake</a></li>
+      <li><a href="https://americanakitchenandbar.com/">Main Site</a></li>
+    </ul>
+    <div class="legal">© 2026 Americana Kitchen &amp; Bar · East Windsor, NJ · Internal staff training resource</div>
+  </div>
+</footer>
+
+<script>
+const miss=[...document.querySelectorAll('img')].filter(i=>!i.getAttribute('src'));
+console.log('Fonts requested: Cormorant + Jost (live AKB stack)');
+console.log('Palette: #000000 / #BF9261 / #F1F1F1 / #363636 / #E5E5E5 — from Elementor globals');
+console.log('Images without src:',miss.length);
+</script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+/* ===================================================================
+   AKB Training Lounge — shared brand stylesheet
+   Tokens extracted from americanakitchenandbar.com Elementor globals.
+   Spec: ../AKB-BRAND-SPEC.md   Do not add a second accent color.
+   =================================================================== */
+
+:root{
+  --akb-black:#000000;
+  --akb-text:#363636;
+  --akb-gold:#BF9261;
+  --akb-cream:#F1F1F1;
+  --akb-grey:#E5E5E5;
+  --akb-white:#FFFFFF;
+  --akb-veil:#000000CF;
+  --font-display:"Cormorant",Georgia,serif;
+  --font-body:"Jost",-apple-system,"Helvetica Neue",sans-serif;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:86px}
+body{font-family:var(--font-body);color:var(--akb-text);background:var(--akb-white);
+     -webkit-font-smoothing:antialiased;line-height:1.7;font-weight:300}
+.wrap{max-width:1140px;margin:0 auto;padding:0 28px}
+.wrap-narrow{max-width:860px;margin:0 auto;padding:0 28px}
+
+/* ---------- type ---------- */
+.eyebrow{font-size:.72rem;font-weight:400;letter-spacing:2px;text-transform:uppercase;
+         color:var(--akb-gold);margin-bottom:14px}
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:700;color:var(--akb-black);line-height:1.12}
+h1{font-size:clamp(2.4rem,5.4vw,3.8rem)}
+h2{font-size:clamp(2rem,4.4vw,3rem);letter-spacing:-.01em}
+h3{font-size:1.45rem}
+h4{font-size:1.12rem}
+.rule{width:54px;height:1px;background:var(--akb-gold);margin:18px 0}
+.rule.center{margin:18px auto}
+a{color:inherit}
+
+/* ---------- chrome ---------- */
+.topbar{background:var(--akb-black);color:var(--akb-cream);font-size:.7rem;letter-spacing:1.6px;
+        text-transform:uppercase;padding:9px 0;text-align:center}
+.topbar b{color:var(--akb-gold);font-weight:500}
+nav{background:var(--akb-black);padding:20px 0;position:sticky;top:0;z-index:50;
+    border-bottom:1px solid rgba(191,146,97,.26)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.nav-in img{height:34px;width:auto;display:block}
+.nav-links{display:flex;gap:30px;align-items:center;list-style:none}
+.nav-links a{color:var(--akb-cream);text-decoration:none;font-size:.76rem;letter-spacing:1.6px;
+             text-transform:uppercase;font-weight:400;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--akb-gold)}
+
+/* ---------- buttons: square, uppercase, tracked ---------- */
+.btn{display:inline-block;padding:15px 36px;font-family:var(--font-body);font-size:.74rem;
+     letter-spacing:2px;text-transform:uppercase;font-weight:400;text-decoration:none;
+     border-radius:0;transition:all .25s;cursor:pointer;border:1px solid transparent}
+.btn-gold{background:var(--akb-gold);color:var(--akb-black);border-color:var(--akb-gold)}
+.btn-gold:hover{background:transparent;color:var(--akb-gold)}
+.btn-ghost{background:transparent;color:var(--akb-cream);border-color:rgba(241,241,241,.5)}
+.btn-ghost:hover{border-color:var(--akb-gold);color:var(--akb-gold)}
+.btn-dark{background:transparent;color:var(--akb-black);border-color:var(--akb-black)}
+.btn-dark:hover{background:var(--akb-black);color:var(--akb-gold)}
+
+/* ---------- page header (interior pages) ---------- */
+.page-head{background:var(--akb-black);color:var(--akb-cream);text-align:center;
+           padding:84px 0 76px;position:relative;overflow:hidden}
+.page-head::after{content:"";position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 0%,rgba(191,146,97,.14),transparent 62%);pointer-events:none}
+.page-head .inner{position:relative;z-index:2}
+.page-head h1{color:var(--akb-cream)}
+.page-head h1 em{font-style:italic;font-weight:300;color:var(--akb-gold);display:block}
+.page-head p{max-width:640px;margin:22px auto 0;color:rgba(241,241,241,.8);font-size:1.02rem}
+.crumb{font-size:.68rem;letter-spacing:1.8px;text-transform:uppercase;
+       color:rgba(241,241,241,.5);margin-bottom:18px}
+.crumb a{color:rgba(241,241,241,.68);text-decoration:none}
+.crumb a:hover{color:var(--akb-gold)}
+
+/* ---------- sections ---------- */
+section{padding:88px 0}
+.sec-head{text-align:center;max-width:680px;margin:0 auto 54px}
+.sec-head p{margin-top:14px}
+.band-cream{background:var(--akb-cream)}
+.band-dark{background:var(--akb-black);color:var(--akb-cream)}
+.band-dark h2,.band-dark h3,.band-dark h4{color:var(--akb-cream)}
+.band-dark .sec-head p{color:rgba(241,241,241,.78)}
+
+/* ---------- tags ---------- */
+.tags{display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-size:.63rem;letter-spacing:1.2px;text-transform:uppercase;padding:5px 11px;
+     background:var(--akb-cream);color:var(--akb-text);border:1px solid var(--akb-grey)}
+.band-dark .tag{background:rgba(255,255,255,.05);color:rgba(241,241,241,.82);
+                border-color:rgba(191,146,97,.3)}
+
+/* ---------- cards ---------- */
+.card{background:var(--akb-white);border:1px solid var(--akb-grey);border-radius:0;
+      padding:40px 32px;transition:all .3s}
+.card:hover{border-color:var(--akb-gold);transform:translateY(-4px);box-shadow:0 18px 44px rgba(0,0,0,.09)}
+.card .num{font-family:var(--font-display);font-size:3.1rem;font-weight:700;color:var(--akb-grey);
+           line-height:1;margin-bottom:6px;transition:color .3s}
+.card:hover .num{color:var(--akb-gold)}
+.card .kicker{font-size:.66rem;letter-spacing:2px;text-transform:uppercase;
+              color:var(--akb-gold);margin-bottom:10px}
+.more{font-size:.72rem;letter-spacing:1.8px;text-transform:uppercase;color:var(--akb-black);
+      text-decoration:none;border-bottom:1px solid var(--akb-gold);padding-bottom:3px;
+      display:inline-block;transition:color .2s}
+.more:hover{color:var(--akb-gold)}
+
+/* ---------- footer ---------- */
+footer{background:var(--akb-black);color:rgba(241,241,241,.66);padding:64px 0 30px;text-align:center}
+footer img{height:40px;margin-bottom:22px}
+footer .f-links{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;
+                margin-bottom:26px;list-style:none}
+footer .f-links a{color:rgba(241,241,241,.72);text-decoration:none;font-size:.72rem;
+                  letter-spacing:1.6px;text-transform:uppercase}
+footer .f-links a:hover{color:var(--akb-gold)}
+footer .legal{font-size:.74rem;border-top:1px solid rgba(241,241,241,.14);padding-top:22px;
+              color:rgba(241,241,241,.45)}
+
+/* ---------- a11y ---------- */
+.skip{position:absolute;left:-9999px;top:0;background:var(--akb-gold);color:#000;
+      padding:12px 20px;z-index:100;font-size:.74rem;letter-spacing:2px;text-transform:uppercase}
+.skip:focus{left:0}
+:focus-visible{outline:2px solid var(--akb-gold);outline-offset:3px}
+
+@media(max-width:900px){
+  .nav-links{display:none}
+  section{padding:62px 0}
+  .page-head{padding:60px 0 54px}
+}

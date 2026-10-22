@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Question Café — AKB Training Lounge</title>
+<meta name="description" content="A community space where the Americana Kitchen &amp; Bar team can ask AI questions, share what worked, and learn from each other.">
+<link rel="icon" href="assets/akb_icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="akb.css">
+<style>
+/* guidelines */
+.guide{background:var(--akb-cream);border-left:3px solid var(--akb-gold);padding:28px 32px;
+       display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-bottom:56px}
+.guide div{font-size:.88rem}
+.guide b{display:block;font-family:var(--font-display);font-size:1.05rem;font-weight:700;
+         color:var(--akb-black);margin-bottom:5px}
+
+/* form */
+.formwrap{border:1px solid var(--akb-grey);background:var(--akb-white);padding:40px}
+.fg{margin-bottom:22px}
+label{display:block;font-size:.68rem;letter-spacing:1.6px;text-transform:uppercase;
+      color:var(--akb-text);margin-bottom:9px;font-weight:400}
+label .req{color:var(--akb-gold)}
+input[type=text],select,textarea{width:100%;font-family:var(--font-body);font-size:.95rem;
+  font-weight:300;color:var(--akb-text);background:var(--akb-white);border:1px solid var(--akb-grey);
+  border-radius:0;padding:13px 15px;transition:border-color .2s}
+input[type=text]:focus,select:focus,textarea:focus{outline:none;border-color:var(--akb-gold)}
+textarea{min-height:130px;resize:vertical;line-height:1.7}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.chips{display:flex;gap:9px;flex-wrap:wrap}
+.chip{font-family:var(--font-body);font-size:.66rem;letter-spacing:1.4px;text-transform:uppercase;
+      padding:10px 17px;background:transparent;border:1px solid var(--akb-grey);color:var(--akb-text);
+      cursor:pointer;border-radius:0;transition:all .2s}
+.chip:hover{border-color:var(--akb-gold);color:var(--akb-gold)}
+.chip.on{background:var(--akb-black);border-color:var(--akb-black);color:var(--akb-gold)}
+.count{font-size:.7rem;color:#6a6a6a;text-align:right;margin-top:6px;letter-spacing:1px}
+.count.over{color:#a33}
+.fnote{font-size:.78rem;color:#6a6a6a;margin-top:16px;line-height:1.6}
+.ok{display:none;background:var(--akb-black);color:var(--akb-cream);padding:28px 32px;
+    border-left:3px solid var(--akb-gold);margin-top:22px}
+.ok.show{display:block}
+.ok b{font-family:var(--font-display);font-size:1.2rem;color:var(--akb-cream);display:block;margin-bottom:6px}
+.ok p{color:rgba(241,241,241,.78);font-size:.92rem}
+
+/* feed */
+.feedbar{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:38px}
+.q{border:1px solid var(--akb-grey);background:var(--akb-white);padding:30px 32px;margin-bottom:20px;
+   transition:border-color .25s}
+.q:hover{border-color:var(--akb-gold)}
+.q-top{display:flex;align-items:center;gap:15px;margin-bottom:18px}
+.av{width:42px;height:42px;border:1px solid var(--akb-gold);color:var(--akb-gold);
+    display:flex;align-items:center;justify-content:center;font-family:var(--font-display);
+    font-size:.92rem;font-weight:700;flex-shrink:0}
+.who b{display:block;font-family:var(--font-display);font-size:1.08rem;font-weight:700;
+       color:var(--akb-black)}
+.who span{font-size:.66rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--akb-gold)}
+.when{margin-left:auto;font-size:.66rem;letter-spacing:1.2px;text-transform:uppercase;color:#6a6a6a}
+.q-text{font-family:var(--font-display);font-size:1.22rem;font-weight:400;font-style:italic;
+        color:var(--akb-black);line-height:1.55;margin-bottom:20px}
+.ans{background:var(--akb-cream);border-left:3px solid var(--akb-gold);padding:22px 26px;
+     margin-bottom:18px}
+.ans .lbl{font-size:.64rem;letter-spacing:1.8px;text-transform:uppercase;color:var(--akb-gold);
+          margin-bottom:10px}
+.ans p{font-size:.93rem;margin-bottom:10px}
+.ans p:last-of-type{margin-bottom:0}
+.ans .by{font-size:.78rem;color:#6a6a6a;margin-top:12px;font-style:italic}
+.q-foot{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.pill{font-size:.6rem;letter-spacing:1.3px;text-transform:uppercase;padding:5px 11px;
+      border:1px solid var(--akb-grey);color:var(--akb-text)}
+.pill.feat{border-color:var(--akb-gold);color:var(--akb-gold)}
+.pill.ansd{background:var(--akb-black);border-color:var(--akb-black);color:var(--akb-gold)}
+.pill.open{border-style:dashed;color:#6a6a6a}
+
+@media(max-width:900px){
+  .guide{grid-template-columns:1fr;gap:16px;padding:24px}
+  .frow{grid-template-columns:1fr}
+  .formwrap{padding:26px 22px}
+  .q{padding:24px 22px}
+  .when{margin-left:0;width:100%;margin-top:4px}
+  .q-top{flex-wrap:wrap}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="topbar">Internal Staff Resource &nbsp;·&nbsp; <b>AKB Training Lounge</b> &nbsp;·&nbsp; East Windsor, NJ</div>
+
+<nav>
+  <div class="wrap nav-in">
+    <a href="index.html"><img src="assets/akb_logo_white.png" alt="Americana Kitchen &amp; Bar — Training Lounge home"></a>
+    <ul class="nav-links">
+      <li><a href="sessions.html">Sessions</a></li>
+      <li><a href="personas.html">Personas</a></li>
+      <li><a href="cafe.html" class="active">Question Café</a></li>
+      <li><a href="intake.html">Intake</a></li>
+      <li><a href="index.html#start">Get Started</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="page-head">
+  <div class="wrap inner">
+    <div class="crumb"><a href="index.html">Home</a> &nbsp;/&nbsp; Question Café</div>
+    <h1>The Question Café<em>Ask. Answer. Share.</em></h1>
+    <p>Have a question about AI and your Americana work? Post it here. Your colleagues have answers — and the best ones get featured for everyone to learn from.</p>
+  </div>
+</header>
+
+<main id="main">
+
+<section>
+  <div class="wrap-narrow">
+    <div class="guide">
+      <div><b>Be specific</b>Good questions get good answers. Include the actual task.</div>
+      <div><b>Share both sides</b>What worked — and what didn't. Failures teach faster.</div>
+      <div><b>Protect the guest</b>No guest names, card data, or private staff matters.</div>
+      <div><b>All levels welcome</b>Never used AI before? That's exactly who this is for.</div>
+    </div>
+
+    <div class="sec-head">
+      <div class="eyebrow">Community Space</div>
+      <h2>Ask the Team</h2>
+      <div class="rule center"></div>
+      <p>Your question probably isn't just yours. Asking it helps the whole floor.</p>
+    </div>
+
+    <form class="formwrap" id="askform" novalidate>
+      <div class="frow">
+        <div class="fg">
+          <label for="nm">Your Name <span class="req">*</span></label>
+          <input type="text" id="nm" required placeholder="First name is fine">
+        </div>
+        <div class="fg">
+          <label for="dp">Department / Station</label>
+          <select id="dp">
+            <option value="">— Select —</option>
+            <option>Kitchen</option>
+            <option>Front of House</option>
+            <option>Bar</option>
+            <option>Management</option>
+            <option>Accounting</option>
+            <option>Media &amp; Communications</option>
+            <option>Café Build-Out</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="fg">
+        <label>Category <span class="req">*</span></label>
+        <div class="chips" id="cats">
+          <button type="button" class="chip" data-c="Prompting">✍️ Prompting</button>
+          <button type="button" class="chip" data-c="Personas">🎭 Personas</button>
+          <button type="button" class="chip" data-c="ChatGPT">🤖 ChatGPT</button>
+          <button type="button" class="chip" data-c="Claude">✨ Claude</button>
+          <button type="button" class="chip" data-c="Use Cases">💡 Use Cases</button>
+          <button type="button" class="chip" data-c="Tools">🛠️ Tools</button>
+        </div>
+      </div>
+
+      <div class="fg">
+        <label for="qt">Your Question <span class="req">*</span></label>
+        <textarea id="qt" maxlength="600" placeholder="What are you trying to do, and where does it go wrong? The more detail, the better the answer."></textarea>
+        <div class="count" id="cnt">0 / 600</div>
+      </div>
+
+      <div class="fg">
+        <label for="rs">Related Session (optional)</label>
+        <select id="rs">
+          <option value="">— If it relates to one —</option>
+          <option>Session 1: Anatomy of a Prompt</option>
+          <option>Session 2: AI Personas</option>
+          <option>Session 3: The Prompt Ladder</option>
+          <option>General AI question</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-dark">Post My Question →</button>
+      <p class="fnote">Questions are reviewed before they appear — usually within 24 hours. Moderated by Media &amp; Communications.</p>
+
+      <div class="ok" id="ok">
+        <b>☕ Question submitted</b>
+        <p>It'll appear after a quick review, usually within 24 hours. Thanks for asking — odds are someone else on the floor was wondering the same thing.</p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section class="band-cream">
+  <div class="wrap-narrow">
+    <div class="sec-head">
+      <div class="eyebrow">Live From the Floor</div>
+      <h2>Community Questions</h2>
+      <div class="rule center"></div>
+    </div>
+
+    <div class="feedbar">
+      <button class="chip on" data-f="all">All</button>
+      <button class="chip" data-f="feat">⭐ Featured</button>
+      <button class="chip" data-f="ansd">✅ Answered</button>
+      <button class="chip" data-f="open">🕐 Needs an Answer</button>
+    </div>
+
+    <div id="feed">
+
+      <article class="q" data-s="feat ansd">
+        <div class="q-top">
+          <div class="av">AR</div>
+          <div class="who"><b>Alex R.</b><span>Management</span></div>
+          <div class="when">today</div>
+        </div>
+        <p class="q-text">“Thanksgiving is three seatings and 220 covers. Can AI actually help me build the staffing plan, or is that still a human job?”</p>
+        <div class="ans">
+          <div class="lbl">✅ Top Answer</div>
+          <p>It's genuinely good at this, but only if you give it the constraints. Load the Operations Manager persona, then list: coverage minimum per seating, who's already requested off, holiday pay rules, and the fact that we want strong floor coverage this season because the 15% goal rides on service quality.</p>
+          <p>Ask for a table by seating with a short list of gaps underneath. It'll catch conflicts you'd miss at 11pm. You still make the call — but you're editing a draft instead of starting cold.</p>
+          <p class="by">— Operations Manager persona · see Session 3's worked example</p>
+        </div>
+        <div class="q-foot">
+          <span class="pill feat">⭐ Featured</span><span class="pill ansd">✅ Answered</span>
+          <span class="pill">Use Cases</span>
+        </div>
+      </article>
+
+      <article class="q" data-s="feat ansd">
+        <div class="q-top">
+          <div class="av">DR</div>
+          <div class="who"><b>Dana R.</b><span>Media &amp; Communications</span></div>
+          <div class="when">2 days ago</div>
+        </div>
+        <p class="q-text">“What's the best way to use AI to answer a tough Google review without sounding defensive or corporate? We have 3,000+ reviews and the generic replies read badly.”</p>
+        <div class="ans">
+          <div class="lbl">✅ Top Answer</div>
+          <p>The fix is a persona, not a better prompt. Before you ask for the reply, paste the Marketing Lead persona — it already carries our voice rules, including the words we never use. Then give it the actual review text.</p>
+          <p>Two things that make the difference: name the specific thing that went wrong rather than apologizing in general, and never close with an invitation to "discuss offline." That reads as damage control. Thank them, own the specific miss, say what changes, and leave the door open warmly.</p>
+          <p class="by">— Marketing Lead persona + Session 2 workflow</p>
+        </div>
+        <div class="q-foot">
+          <span class="pill feat">⭐ Featured</span><span class="pill ansd">✅ Answered</span>
+          <span class="pill">Personas</span>
+        </div>
+      </article>
+
+      <article class="q" data-s="ansd">
+        <div class="q-top">
+          <div class="av">MC</div>
+          <div class="who"><b>Marcus C.</b><span>Accounting</span></div>
+          <div class="when">3 days ago</div>
+        </div>
+        <p class="q-text">“Can I keep our chart of accounts in a Claude Project so I stop re-pasting it every close? It's the same setup every single time.”</p>
+        <div class="ans">
+          <div class="lbl">✅ Top Answer</div>
+          <p>Yes — this is exactly what Projects are for. In Claude, click Projects in the left sidebar, create one called "AKB Finance," and paste the Finance Analyst persona into the project instructions. Every new chat inside that project loads it automatically.</p>
+          <p>You can also upload files to the project — last year's P&amp;L, your account mapping, a blank variance template. Claude can reference them directly instead of you pasting figures each time. One caution: keep anything with bank or card detail out of it.</p>
+          <p class="by">— Session 2 resource page</p>
+        </div>
+        <div class="q-foot">
+          <span class="pill ansd">✅ Answered</span><span class="pill">Claude</span>
+        </div>
+      </article>
+
+      <article class="q" data-s="feat ansd">
+        <div class="q-top">
+          <div class="av">TN</div>
+          <div class="who"><b>Tomás N.</b><span>Front of House</span></div>
+          <div class="when">4 days ago</div>
+        </div>
+        <p class="q-text">“How do I build a prompt that writes wine pairing notes for our list? When I ask plainly, it suggests wines we don't even carry.”</p>
+        <div class="ans">
+          <div class="lbl">✅ Top Answer</div>
+          <p>That's a Context problem — element two from Session 1. The AI has no idea what's on our list, so it invents plausible wines. Paste the actual by-the-glass list into the prompt, then ask it to pair <em>only</em> from that list. Add the constraint explicitly: "Do not suggest any wine not on this list."</p>
+          <p>Then add Format: ask for one sentence a server can say at the table, not a paragraph of tasting notes. Nobody recites three sentences about minerality on a Saturday night.</p>
+          <p class="by">— Service Mentor persona</p>
+        </div>
+        <div class="q-foot">
+          <span class="pill feat">⭐ Featured</span><span class="pill ansd">✅ Answered</span>
+          <span class="pill">Prompting</span>
+        </div>
+      </article>
+
+      <article class="q" data-s="ansd">
+        <div class="q-top">
+          <div class="av">PK</div>
+          <div class="who"><b>Priya K.</b><span>Management</span></div>
+          <div class="when">5 days ago</div>
+        </div>
+        <p class="q-text">“Is it safe to paste real work documents into ChatGPT? I'm not sure where the line is.”</p>
+        <div class="ans">
+          <div class="lbl">✅ Top Answer</div>
+          <p>Treat it like email to someone outside the restaurant. Fine to paste: draft schedules without surnames, menu text, public policy, general templates, vendor quotes. Not fine: guest payment details, anyone's personal contact info, medical or disciplinary matters, anything from a personnel file.</p>
+          <p>When in doubt, anonymize first — "Server A," "Line Cook B." The AI almost never needs the real name to give you a useful answer.</p>
+          <p class="by">— Operations Manager persona</p>
+        </div>
+        <div class="q-foot">
+          <span class="pill ansd">✅ Answered</span><span class="pill">Tools</span>
+        </div>
+      </article>
+
+      <article class="q" data-s="open">
+        <div class="q-top">
+          <div class="av">JL</div>
+          <div class="who"><b>Jesse L.</b><span>Kitchen</span></div>
+          <div class="when">1 day ago</div>
+        </div>
+        <p class="q-text">“When I ask for a prep list for a new dish it gives me quantities for a home kitchen. How do I get it to think in service volume?”</p>
+        <div class="q-foot">
+          <span class="pill open">🕐 Needs an Answer</span><span class="pill">Prompting</span>
+        </div>
+      </article>
+
+      <article class="q" data-s="open">
+        <div class="q-top">
+          <div class="av">SB</div>
+          <div class="who"><b>Sam B.</b><span>Café Build-Out</span></div>
+          <div class="when">6 hours ago</div>
+        </div>
+        <p class="q-text">“What's a good prompt for turning a week of messy vendor emails into one clean status update for the Owner?”</p>
+        <div class="q-foot">
+          <span class="pill open">🕐 Needs an Answer</span><span class="pill">Use Cases</span>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="band-dark">
+  <div class="wrap sec-head" style="margin-bottom:0">
+    <div class="eyebrow">New Here?</div>
+    <h2>Start With Session One</h2>
+    <div class="rule center"></div>
+    <p>Most café questions trace back to one of the four prompt elements. An hour in Session One answers a lot of them before you have to ask.</p>
+    <div style="margin-top:32px"><a href="sessions.html#session-1" class="btn btn-gold">View Session One</a></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <img src="assets/akb_logo_white.png" alt="Americana Kitchen &amp; Bar">
+    <ul class="f-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="sessions.html">Sessions</a></li>
+      <li><a href="personas.html">Personas</a></li>
+      <li><a href="cafe.html">Question Café</a></li>
+      <li><a href="intake.html">Intake</a></li>
+      <li><a href="https://americanakitchenandbar.com/">Main Site</a></li>
+    </ul>
+    <div class="legal">© 2026 Americana Kitchen &amp; Bar · East Windsor, NJ · Internal staff training resource</div>
+  </div>
+</footer>
+
+<script>
+// ---- category chips (single select) ----
+let cat='';
+document.querySelectorAll('#cats .chip').forEach(c=>{
+  c.addEventListener('click',()=>{
+    const was=c.classList.contains('on');
+    document.querySelectorAll('#cats .chip').forEach(x=>x.classList.remove('on'));
+    if(!was){c.classList.add('on');cat=c.dataset.c}else{cat=''}
+  });
+});
+
+// ---- character counter ----
+const qt=document.getElementById('qt'),cnt=document.getElementById('cnt');
+qt.addEventListener('input',()=>{
+  cnt.textContent=qt.value.length+' / 600';
+  cnt.classList.toggle('over',qt.value.length>560);
+});
+
+// ---- submit (front-end only until a backend is wired) ----
+document.getElementById('askform').addEventListener('submit',e=>{
+  e.preventDefault();
+  const nm=document.getElementById('nm');
+  let bad=false;
+  [[nm,nm.value.trim()],[qt,qt.value.trim()]].forEach(([el,v])=>{
+    el.style.borderColor=v?'':'#a33';if(!v)bad=true;
+  });
+  if(!cat){document.getElementById('cats').scrollIntoView({block:'center'});bad=true}
+  if(bad)return;
+  document.getElementById('ok').classList.add('show');
+  e.target.querySelector('button[type=submit]').style.display='none';
+  document.getElementById('ok').scrollIntoView({behavior:'smooth',block:'center'});
+});
+
+// ---- feed filter ----
+document.querySelectorAll('.feedbar .chip').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.feedbar .chip').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    const f=b.dataset.f;
+    document.querySelectorAll('#feed .q').forEach(q=>{
+      q.style.display=(f==='all'||q.dataset.s.includes(f))?'':'none';
+    });
+  });
+});
+
+const qs=document.querySelectorAll('#feed .q');
+console.log('cafe.html · questions:',qs.length,
+            '| answered:',document.querySelectorAll('[data-s*="ansd"]').length,
+            '| open:',document.querySelectorAll('[data-s*="open"]').length);
+console.log('NOTE: form is front-end only — needs a backend or form service before launch.');
+</script>
+</body>
+</html>

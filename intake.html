@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Persona Intake — AKB Training Lounge</title>
+<meta name="description" content="The figures we need to finish the AKB personas — one short section each for the General Manager, Accounting, and the Café Build-Out Project Manager.">
+<link rel="icon" href="assets/akb_icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="akb.css">
+<style>
+.prog{position:sticky;top:75px;z-index:40;background:var(--akb-white);
+      border-bottom:1px solid var(--akb-grey);padding:14px 0}
+.prog-in{display:flex;align-items:center;gap:18px}
+.prog-bar{flex:1;height:3px;background:var(--akb-grey);position:relative}
+.prog-fill{position:absolute;inset:0 auto 0 0;background:var(--akb-gold);width:0;transition:width .3s}
+.prog-n{font-size:.66rem;letter-spacing:1.6px;text-transform:uppercase;color:var(--akb-mute);
+        white-space:nowrap}
+.prog-n b{color:var(--akb-gold);font-weight:500}
+
+.owner{border:1px solid var(--akb-grey);background:var(--akb-white);margin-bottom:26px}
+.owner-h{display:flex;align-items:center;gap:16px;padding:24px 30px;background:var(--akb-cream);
+         border-bottom:1px solid var(--akb-grey)}
+.owner-h .ic{font-size:1.5rem}
+.owner-h .t{flex:1}
+.owner-h .dept{font-size:.63rem;letter-spacing:1.8px;text-transform:uppercase;color:var(--akb-gold)}
+.owner-h h3{font-size:1.3rem;margin-top:2px}
+.owner-h .mins{font-size:.66rem;letter-spacing:1.4px;text-transform:uppercase;color:var(--akb-mute);
+               white-space:nowrap}
+.owner-b{padding:28px 30px}
+.why{font-size:.9rem;color:var(--akb-mute);margin-bottom:22px;padding-left:14px;
+     border-left:2px solid var(--akb-gold)}
+
+.f{margin-bottom:20px}
+.f label{display:block;font-size:.68rem;letter-spacing:1.5px;text-transform:uppercase;
+         margin-bottom:7px}
+.f .hint{font-size:.8rem;color:var(--akb-mute);margin-bottom:8px;text-transform:none;
+         letter-spacing:0}
+.f input,.f select,.f textarea{width:100%;font-family:var(--font-body);font-size:.95rem;
+  font-weight:300;color:var(--akb-text);background:var(--akb-white);border:1px solid var(--akb-grey);
+  border-radius:0;padding:12px 14px;transition:border-color .2s}
+.f input:focus,.f select:focus,.f textarea:focus{outline:none;border-color:var(--akb-gold)}
+.f input.done,.f textarea.done,.f select.done{border-left:3px solid var(--akb-gold)}
+.f textarea{min-height:88px;resize:vertical;line-height:1.65}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.row3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+
+.out{background:var(--akb-black);color:var(--akb-cream);padding:34px 36px;margin-top:10px}
+.out h3{color:var(--akb-cream);margin-bottom:6px}
+.out .sub{font-size:.9rem;color:rgba(241,241,241,.7);margin-bottom:22px}
+.out pre{background:rgba(255,255,255,.05);border-left:3px solid var(--akb-gold);padding:22px 24px;
+  font-family:ui-monospace,Menlo,monospace;font-size:.78rem;line-height:1.7;white-space:pre-wrap;
+  color:rgba(241,241,241,.9);max-height:400px;overflow-y:auto;margin-bottom:16px}
+.out .acts{display:flex;gap:12px;flex-wrap:wrap}
+.obtn{font-family:var(--font-body);font-size:.7rem;letter-spacing:1.8px;text-transform:uppercase;
+  padding:13px 26px;background:var(--akb-gold);color:var(--akb-black);border:1px solid var(--akb-gold);
+  cursor:pointer;border-radius:0;transition:all .22s}
+.obtn:hover{background:transparent;color:var(--akb-gold)}
+.obtn.ghost{background:transparent;color:var(--akb-cream);border-color:rgba(241,241,241,.4)}
+.obtn.ghost:hover{border-color:var(--akb-gold);color:var(--akb-gold)}
+.picker{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.pk{font-family:var(--font-body);font-size:.64rem;letter-spacing:1.4px;text-transform:uppercase;
+  padding:9px 15px;background:transparent;border:1px solid rgba(241,241,241,.28);
+  color:rgba(241,241,241,.8);cursor:pointer;border-radius:0}
+.pk.on{background:var(--akb-gold);border-color:var(--akb-gold);color:var(--akb-black)}
+
+.saved{font-size:.74rem;color:var(--akb-mute);letter-spacing:1px;margin-top:14px}
+@media(max-width:900px){
+  .row2,.row3{grid-template-columns:1fr}
+  .owner-h{flex-wrap:wrap;padding:20px}
+  .owner-b{padding:22px 20px}
+  .prog{top:69px}
+}
+@media print{.prog,.out,nav,.topbar,footer{display:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="topbar">Internal Staff Resource &nbsp;·&nbsp; <b>AKB Training Lounge</b> &nbsp;·&nbsp; East Windsor, NJ</div>
+
+<nav>
+  <div class="wrap nav-in">
+    <a href="index.html"><img src="assets/akb_logo_white.png" alt="Americana Kitchen &amp; Bar — Training Lounge home"></a>
+    <ul class="nav-links">
+      <li><a href="sessions.html">Sessions</a></li>
+      <li><a href="personas.html">Personas</a></li>
+      <li><a href="cafe.html">Question Café</a></li>
+      <li><a href="intake.html" class="active">Intake</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="page-head">
+  <div class="wrap inner">
+    <div class="crumb"><a href="index.html">Home</a> &nbsp;/&nbsp; Persona Intake</div>
+    <h1>The Last Few<em>Numbers</em></h1>
+    <p>The personas are built. These are the figures only you hold — the ones that turn a generic assistant into one that knows Americana. Fifteen minutes, split three ways.</p>
+  </div>
+</header>
+
+<div class="prog">
+  <div class="wrap prog-in">
+    <span class="prog-n"><b id="pn">0</b> of <span id="pt">0</span> filled</span>
+    <div class="prog-bar"><div class="prog-fill" id="pf"></div></div>
+    <span class="prog-n" id="pmsg">Start anywhere</span>
+  </div>
+</div>
+
+<main id="main">
+<section>
+  <div class="wrap-narrow">
+
+    <div class="box" style="border:1px solid var(--akb-grey);border-left:3px solid var(--akb-gold);background:var(--akb-cream);padding:24px 28px;margin-bottom:34px">
+      <h4 style="margin-bottom:8px">How this works</h4>
+      <p style="font-size:.93rem;margin-bottom:8px">Fill in your own section — you don't need the others. Your answers save in this browser as you type, so you can stop and come back.</p>
+      <p style="font-size:.93rem;margin-bottom:0">When you're done, scroll to the bottom: the page builds your finished personas, ready to copy straight into Claude or ChatGPT.</p>
+    </div>
+
+    <!-- ============ GM ============ -->
+    <article class="owner">
+      <div class="owner-h">
+        <span class="ic">📋</span>
+        <div class="t"><div class="dept">General Manager</div><h3>Staffing &amp; Service</h3></div>
+        <span class="mins">~6 min</span>
+      </div>
+      <div class="owner-b">
+        <p class="why">Without these, the AI builds schedules that break coverage and writes staff notes that don't sound like us.</p>
+
+        <div class="row3">
+          <div class="f"><label for="gm_total">Total team</label>
+            <input type="text" id="gm_total" data-k="gm_total" placeholder="e.g. 24"></div>
+          <div class="f"><label for="gm_foh">Front of house</label>
+            <input type="text" id="gm_foh" data-k="gm_foh" placeholder="e.g. 8 servers, 3 bussers"></div>
+          <div class="f"><label for="gm_boh">Kitchen</label>
+            <input type="text" id="gm_boh" data-k="gm_boh" placeholder="e.g. 2 chefs, 4 line, 2 prep"></div>
+        </div>
+
+        <div class="f"><label for="gm_cover">Minimum coverage per shift</label>
+          <div class="hint">The line you won't drop below. Break it out by role.</div>
+          <input type="text" id="gm_cover" data-k="gm_cover" placeholder="e.g. 4 servers, 2 bussers, 6 kitchen, 1 host, 1 bar"></div>
+
+        <div class="row2">
+          <div class="f"><label for="gm_busy">Busiest shifts</label>
+            <input type="text" id="gm_busy" data-k="gm_busy" placeholder="e.g. Fri–Sat dinner, Sun brunch"></div>
+          <div class="f"><label for="gm_slow">Slowest shifts</label>
+            <input type="text" id="gm_slow" data-k="gm_slow" placeholder="e.g. Tue lunch"></div>
+        </div>
+
+        <div class="f"><label for="gm_avail">Standing availability constraints</label>
+          <div class="hint">Who can never work when. Roles are fine if you'd rather not use names.</div>
+          <textarea id="gm_avail" data-k="gm_avail" placeholder="e.g. Chef off Tuesdays · two servers are students, weekends only"></textarea></div>
+
+        <div class="f"><label for="gm_chall">Honest staffing challenge right now</label>
+          <div class="hint">Be blunt. The AI gives better answers when it knows where it actually hurts.</div>
+          <textarea id="gm_chall" data-k="gm_chall" placeholder="e.g. Weekend coverage is thin and we're training two new servers"></textarea></div>
+
+        <div class="row2">
+          <div class="f"><label for="gm_review">Review cadence</label>
+            <select id="gm_review" data-k="gm_review">
+              <option value="">— Select —</option><option>Monthly</option><option>Quarterly</option>
+              <option>Twice a year</option><option>Annually</option><option>Ad hoc</option>
+            </select></div>
+          <div class="f"><label for="gm_labor">Labor cost target</label>
+            <input type="text" id="gm_labor" data-k="gm_labor" placeholder="e.g. 30%"></div>
+        </div>
+
+        <div class="f"><label for="gm_guests">Who our guests are</label>
+          <input type="text" id="gm_guests" data-k="gm_guests" placeholder="e.g. neighborhood regulars, families, date nights, business lunch"></div>
+
+        <div class="f"><label for="gm_complaints">Most common guest complaints</label>
+          <div class="hint">Honestly. This is what the service coaching gets built around.</div>
+          <textarea id="gm_complaints" data-k="gm_complaints" placeholder="e.g. wait times on Saturday, noise in the main room"></textarea></div>
+      </div>
+    </article>
+
+    <!-- ============ ACCOUNTING ============ -->
+    <article class="owner">
+      <div class="owner-h">
+        <span class="ic">📊</span>
+        <div class="t"><div class="dept">Accounting</div><h3>The 15% Path</h3></div>
+        <span class="mins">~5 min</span>
+      </div>
+      <div class="owner-b">
+        <p class="why">The season goal is 15% profit growth through service and wine attachment — not price rises. These numbers are what let the AI model whether that's actually reachable.</p>
+
+        <div class="row3">
+          <div class="f"><label for="ac_check">Average check</label>
+            <input type="text" id="ac_check" data-k="ac_check" placeholder="e.g. $68"></div>
+          <div class="f"><label for="ac_covers">Covers per week</label>
+            <input type="text" id="ac_covers" data-k="ac_covers" placeholder="e.g. 1,400"></div>
+          <div class="f"><label for="ac_attach">Wine attachment today</label>
+            <div class="hint">% of tables ordering wine</div>
+            <input type="text" id="ac_attach" data-k="ac_attach" placeholder="e.g. 38%"></div>
+        </div>
+
+        <div class="row3">
+          <div class="f"><label for="ac_food">Food cost target</label>
+            <input type="text" id="ac_food" data-k="ac_food" placeholder="e.g. 30%"></div>
+          <div class="f"><label for="ac_bev">Beverage cost target</label>
+            <input type="text" id="ac_bev" data-k="ac_bev" placeholder="e.g. 22%"></div>
+          <div class="f"><label for="ac_occ">Occupancy target</label>
+            <input type="text" id="ac_occ" data-k="ac_occ" placeholder="e.g. 8%"></div>
+        </div>
+
+        <div class="f"><label for="ac_attach_t">Wine attachment target</label>
+          <div class="hint">Where you'd need it to land to carry a meaningful share of the 15%.</div>
+          <input type="text" id="ac_attach_t" data-k="ac_attach_t" placeholder="e.g. 50%"></div>
+
+        <div class="row2">
+          <div class="f"><label for="ac_sys">Accounting system</label>
+            <input type="text" id="ac_sys" data-k="ac_sys" placeholder="e.g. QuickBooks"></div>
+          <div class="f"><label for="ac_close">Close cadence</label>
+            <select id="ac_close" data-k="ac_close">
+              <option value="">— Select —</option><option>Weekly</option><option>Every two weeks</option>
+              <option>Monthly</option><option>Period (4-week)</option>
+            </select></div>
+        </div>
+
+        <div class="f"><label for="ac_coa">Main COGS buckets</label>
+          <div class="hint">How you actually categorize cost — so the AI codes things the way you do.</div>
+          <textarea id="ac_coa" data-k="ac_coa" placeholder="e.g. Protein · Produce · Dairy · Dry goods · Wine · Liquor · Beer · NA bev"></textarea></div>
+
+        <div class="row2">
+          <div class="f"><label for="ac_peak">Strongest months</label>
+            <input type="text" id="ac_peak" data-k="ac_peak" placeholder="e.g. Oct–Dec, May"></div>
+          <div class="f"><label for="ac_low">Slowest months</label>
+            <input type="text" id="ac_low" data-k="ac_low" placeholder="e.g. Jan–Feb"></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ PM ============ -->
+    <article class="owner">
+      <div class="owner-h">
+        <span class="ic">🧱</span>
+        <div class="t"><div class="dept">Project Manager</div><h3>Café Build-Out</h3></div>
+        <span class="mins">~4 min</span>
+      </div>
+      <div class="owner-b">
+        <p class="why">The milestone sequence is already in the persona. What it doesn't know is where the build actually stands today.</p>
+
+        <div class="f"><label for="pm_stage">Current milestone</label>
+          <div class="hint">Where you are right now in the standard sequence.</div>
+          <select id="pm_stage" data-k="pm_stage">
+            <option value="">— Select —</option>
+            <option>1 · Permits approved</option>
+            <option>2 · Demolition complete</option>
+            <option>3 · Foundation / slab</option>
+            <option>4 · Framing complete</option>
+            <option>5 · MEP rough-in</option>
+            <option>6 · Rough-in inspection passed</option>
+            <option>7 · Drywall + finishes</option>
+            <option>8 · Millwork + equipment install</option>
+            <option>9 · Punch list</option>
+            <option>10 · Final inspection + C of O</option>
+            <option>11 · Staff training + soft open</option>
+          </select></div>
+
+        <div class="row2">
+          <div class="f"><label for="pm_open">Target opening date</label>
+            <input type="text" id="pm_open" data-k="pm_open" placeholder="e.g. 14 March"></div>
+          <div class="f"><label for="pm_next">Next milestone date</label>
+            <input type="text" id="pm_next" data-k="pm_next" placeholder="e.g. drywall starts 3 Nov"></div>
+        </div>
+
+        <div class="f"><label for="pm_scope">What's being built</label>
+          <div class="hint">Size, seats, the features that matter.</div>
+          <textarea id="pm_scope" data-k="pm_scope" placeholder="e.g. 900 sq ft café, 28 seats, espresso bar, pastry case, separate street entrance"></textarea></div>
+
+        <div class="row2">
+          <div class="f"><label for="pm_budget">Total budget</label>
+            <input type="text" id="pm_budget" data-k="pm_budget" placeholder="e.g. $340,000"></div>
+          <div class="f"><label for="pm_spent">Spent to date</label>
+            <input type="text" id="pm_spent" data-k="pm_spent" placeholder="e.g. $198,000"></div>
+        </div>
+
+        <div class="f"><label for="pm_vendors">Key vendors</label>
+          <div class="hint">Who you're actually chasing each week.</div>
+          <textarea id="pm_vendors" data-k="pm_vendors" placeholder="e.g. GC — Rossi Construction · Millwork — Hudson Cabinet · Equipment — Pecinka Ferri"></textarea></div>
+
+        <div class="f"><label for="pm_risks">Live risks</label>
+          <div class="hint">What's most likely to slip the opening.</div>
+          <textarea id="pm_risks" data-k="pm_risks" placeholder="e.g. millwork hasn't shipped, 6-week lead · health dept sign-off timing"></textarea></div>
+
+        <div class="row2">
+          <div class="f"><label for="pm_owner">Owner update cadence</label>
+            <select id="pm_owner" data-k="pm_owner">
+              <option value="">— Select —</option><option>Weekly</option><option>Every two weeks</option>
+              <option>Monthly</option><option>At each milestone</option>
+            </select></div>
+          <div class="f"><label for="pm_gm">GM update cadence</label>
+            <select id="pm_gm" data-k="pm_gm">
+              <option value="">— Select —</option><option>Weekly</option><option>Every two weeks</option>
+              <option>Monthly</option><option>As needed</option>
+            </select></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ MENU / KITCHEN / BRAND ============ -->
+    <article class="owner">
+      <div class="owner-h">
+        <span class="ic">🔪</span>
+        <div class="t"><div class="dept">Chef &amp; Media — whoever knows</div><h3>Menu, Suppliers &amp; Channels</h3></div>
+        <span class="mins">~4 min</span>
+      </div>
+      <div class="owner-b">
+        <p class="why">Shared detail the Chef, Service, and Marketing personas all draw on.</p>
+
+        <div class="f"><label for="kt_sigs">Signature dishes</label>
+          <div class="hint">The three to five people come back for.</div>
+          <input type="text" id="kt_sigs" data-k="kt_sigs" placeholder="e.g. lamb chops, fish and chips, tuna tartare"></div>
+
+        <div class="f"><label for="kt_sup">Key suppliers</label>
+          <input type="text" id="kt_sup" data-k="kt_sup" placeholder="e.g. Baldor produce · Pat LaFrieda protein · Samuels seafood"></div>
+
+        <div class="f"><label for="kt_diet">Dietary accommodations</label>
+          <input type="text" id="kt_diet" data-k="kt_diet" placeholder="e.g. vegan on request, GF menu, full allergy protocol"></div>
+
+        <div class="f"><label for="kt_wine">Wine program</label>
+          <div class="hint">Regions and styles featured, and how many by the glass.</div>
+          <input type="text" id="kt_wine" data-k="kt_wine" placeholder="e.g. 14 by the glass — Napa, Willamette, Tuscany, Rhône"></div>
+
+        <div class="f"><label for="md_social">Social channels</label>
+          <input type="text" id="md_social" data-k="md_social" placeholder="e.g. @americanakb — IG 4.2k, FB 2.8k"></div>
+      </div>
+    </article>
+
+    <!-- ============ OUTPUT ============ -->
+    <div class="out" id="out">
+      <h3>Your Finished Personas</h3>
+      <p class="sub">Built live from what you've entered. Anything still blank stays marked so you can see what's missing.</p>
+      <div class="picker" id="picker"></div>
+      <pre id="preview">Fill in a section above and your personas appear here.</pre>
+      <div class="acts">
+        <button class="obtn" id="copy" type="button">Copy This Persona</button>
+        <button class="obtn ghost" id="copyall" type="button">Copy All Six</button>
+        <button class="obtn ghost" id="download" type="button">Download as Text</button>
+        <button class="obtn ghost" id="reset" type="button">Clear</button>
+      </div>
+      <p class="saved" id="savedmsg">Nothing saved yet</p>
+    </div>
+
+    <div class="box" style="border:1px solid var(--akb-grey);border-left:3px solid var(--akb-gold);background:var(--akb-cream);padding:24px 28px;margin-top:34px">
+      <h4 style="margin-bottom:8px">Then what?</h4>
+      <p style="font-size:.93rem;margin-bottom:8px">Paste your finished persona into a Claude Project or a ChatGPT Custom GPT and it loads automatically every time. <a href="sessions.html#session-2" style="color:var(--akb-gold)">Session Two</a> walks through both.</p>
+      <p style="font-size:.93rem;margin-bottom:0">Your answers stay in this browser only — nothing is sent anywhere. Use <strong>Download as Text</strong> if you want to hand them to someone else.</p>
+    </div>
+
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <img src="assets/akb_logo_white.png" alt="Americana Kitchen &amp; Bar">
+    <ul class="f-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="sessions.html">Sessions</a></li>
+      <li><a href="personas.html">Personas</a></li>
+      <li><a href="cafe.html">Question Café</a></li>
+      <li><a href="intake.html">Intake</a></li>
+    </ul>
+    <div class="legal">© 2026 Americana Kitchen &amp; Bar · East Windsor, NJ · Internal staff training resource</div>
+  </div>
+</footer>
+
+<script>
+const KEY='akb-intake';
+const F=[...document.querySelectorAll('[data-k]')];
+let D={};
+try{D=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){D={}}
+
+// ---- restore ----
+F.forEach(el=>{
+  if(D[el.dataset.k]){el.value=D[el.dataset.k];el.classList.add('done')}
+  el.addEventListener('input',()=>{
+    D[el.dataset.k]=el.value.trim();
+    el.classList.toggle('done',!!el.value.trim());
+    save();render();
+  });
+});
+
+function save(){
+  try{
+    localStorage.setItem(KEY,JSON.stringify(D));
+    const n=new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+    document.getElementById('savedmsg').textContent='Saved in this browser at '+n;
+  }catch(e){document.getElementById('savedmsg').textContent='Could not save — your browser is blocking storage'}
+}
+
+function prog(){
+  const done=F.filter(el=>el.value.trim()).length;
+  document.getElementById('pn').textContent=done;
+  document.getElementById('pt').textContent=F.length;
+  document.getElementById('pf').style.width=(done/F.length*100)+'%';
+  const m=document.getElementById('pmsg');
+  m.textContent = done===0?'Start anywhere' : done===F.length?'All done — copy below' :
+                  done<F.length/3?'Good start' : done<F.length*0.75?'Over halfway' : 'Nearly there';
+}
+
+// ---- persona assembly ----
+const g=k=>D[k]&&D[k].trim()?D[k].trim():null;
+const or=(k,fallback)=>g(k)||('['+fallback+' — still needed]');
+
+const HEAD=`You are %ROLE% for Americana Kitchen & Bar (AKB) in East Windsor, NJ —
+a neighborhood restaurant serving this community for 30 years.
+Our credo: "our effort is our distinction." 3x Wine Spectator winner.
+Positioning: "More than a great restaurant, AKB is a great local."
+
+THIS SEASON'S GOAL: grow profit 15% through better service and stronger
+wine attachment — explicitly NOT through price increases.
+`;
+
+function P(role,body,tone,never){
+  return HEAD.replace('%ROLE%',role)+'\n'+body.trim()+
+    '\n\nYOUR TONE: '+tone+'\n\nNEVER: '+never;
+}
+
+const BUILD={
+ kitchen:()=>P('an expert chef and culinary consultant',
+`WHAT YOU KNOW ABOUT AKB:
+- Service: breakfast, lunch, dinner Mon-Sat; Sunday brunch 10-4;
+  happy hour Mon-Fri 3-6
+- Signature dishes: ${or('kt_sigs','signature dishes')}
+- Key suppliers: ${or('kt_sup','suppliers')}
+- Dietary accommodations: ${or('kt_diet','dietary accommodations')}
+- Kitchen team: ${or('gm_boh','kitchen headcount')}
+- Food cost target: ${or('ac_food','food cost %')}
+- Busiest service: ${or('gm_busy','busiest shifts')} | Slowest: ${or('gm_slow','slowest shifts')}
+- Thanksgiving: 220 covers across three seatings (1pm, 3:30pm, 6pm).
+  We open for regular breakfast at 8am the next morning — holiday prep
+  must not wreck Friday service.
+
+YOUR JOB:
+- Train kitchen staff on technique, plating, and food safety to AKB standards
+- Develop menu ideas that fit our brand AND our cost target
+- Find cost savings that don't touch quality
+- Write training guides a brand-new prep cook can follow`,
+'Practical, encouraging, experienced. You care about food quality AND about running a profitable kitchen.',
+'suggest a dish that blows the food cost target without flagging it; write a technique a new cook could not follow on a busy service.'),
+
+ foh:()=>P('an expert hospitality trainer',
+`WHAT YOU KNOW ABOUT AKB:
+- Guests: ${or('gm_guests','guest profile')}
+- Average check: ${or('ac_check','average check')}
+- Wine program: ${or('kt_wine','wine program')}
+- Wine attachment today: ${or('ac_attach','current attachment %')} | Target: ${or('ac_attach_t','target %')}
+- Biggest gap: most tables order one glass and stop
+- Most common complaints: ${or('gm_complaints','common complaints')}
+- Floor team: ${or('gm_foh','front of house headcount')}
+- Signature dishes: ${or('kt_sigs','signature dishes')}
+- Thanksgiving: 220 covers, three seatings
+- Service style: warm and knowledgeable, never pushy
+
+YOUR JOB:
+- Coach servers through difficult guest moments with grace
+- Build wine language that sounds like a recommendation, not a pitch
+- Write shift briefings and pre-service talking points
+- Turn a complaint into the reason a guest comes back`,
+'Supportive and experienced — you have worked the floor and know the stress. Every complaint is a chance to make a regular.',
+'suggest a wine not on our list; write anything that pressures a guest; use corporate hospitality jargon.'),
+
+ mgmt:()=>P('an experienced restaurant operations manager',
+`WHAT YOU KNOW ABOUT AKB:
+- Team size: ${or('gm_total','total headcount')} — FOH ${or('gm_foh','front of house')}, kitchen ${or('gm_boh','kitchen')}
+- Hours: breakfast from 8am Mon-Sat, dinner to close; Sunday brunch 10-4;
+  happy hour Mon-Fri 3-6
+- Minimum coverage per shift: ${or('gm_cover','coverage minimums')}
+- Labor cost target: ${or('gm_labor','labor %')}
+- Busiest: ${or('gm_busy','busiest shifts')} | Slowest: ${or('gm_slow','slowest shifts')}
+- Standing availability constraints: ${or('gm_avail','availability constraints')}
+- Current staffing challenge: ${or('gm_chall','staffing challenge')}
+- Review cadence: ${or('gm_review','review cadence')}
+- Thanksgiving: three seatings, 220 covers, holiday pay applies
+- The 15% goal rides on service quality — schedule for strong floor
+  coverage, not thin cover
+
+YOUR JOB:
+- Build fair, efficient schedules that hit coverage and the labor target
+- Draft performance feedback that is specific, kind, and clear
+- Write staff communications that sound like a person, not a policy manual
+- Respect labor law and stated availability without exception`,
+'Fair, direct, and warm. You treat staff as people, not labor hours. Same standard for everyone, explained plainly.',
+'schedule below the coverage minimum; ignore a stated availability constraint; write feedback that is vague about what should change.'),
+
+ acct:()=>P('an expert restaurant accountant',
+`WHAT YOU KNOW ABOUT AKB:
+- Revenue: dine-in, bar, online ordering (Toast), catering, private
+  events, gift cards
+- Average check: ${or('ac_check','average check')} | Covers per week: ${or('ac_covers','weekly covers')}
+- Wine attachment today: ${or('ac_attach','current attachment %')} | Target: ${or('ac_attach_t','target %')}
+- Food cost target: ${or('ac_food','food %')} | Beverage: ${or('ac_bev','beverage %')} | Labor: ${or('gm_labor','labor %')} | Occupancy: ${or('ac_occ','occupancy %')}
+- Main COGS buckets: ${or('ac_coa','COGS categories')}
+- Accounting system: ${or('ac_sys','system')} | POS: Toast | Close: ${or('ac_close','close cadence')}
+- Strongest months: ${or('ac_peak','peak months')} | Slowest: ${or('ac_low','slow months')}
+- Thanksgiving: 220 covers over three seatings — biggest single day
+- Cafe build-out capital running alongside operations
+
+YOUR JOB:
+- Analyze food and labor variances and name the actual driver
+- Model the 15% path: what has to move — attachment rate, check
+  average, or covers — and which is realistic
+- Price menu items to hit target without undercutting value
+- Track the cafe build budget against plan
+- Explain numbers so a non-finance manager can act on them`,
+'Analytical and practical. You know restaurant margins are thin and every cost decision touches quality or staff. Always end with a recommendation, not just a number.',
+'recommend a price increase as the route to the 15% — the goal is explicitly service and attachment driven; present a number without saying what to do about it.'),
+
+ media:()=>P('a restaurant marketing and social media expert',
+`WHAT YOU KNOW ABOUT AKB:
+- Positioning: "More than a great restaurant, AKB is a great local"
+- 30 years here. 3x Wine Spectator winner. ~3,300 Google reviews.
+- Taglines: "Gather. Toast. Celebrate." (brand) ·
+  "Gather. Learn. Serve Better." (staff training)
+- Channels: ${or('md_social','social handles + follower counts')}
+- Guests: ${or('gm_guests','guest profile')}
+- Signature dishes: ${or('kt_sigs','signature dishes')}
+- Wine program: ${or('kt_wine','wine program')}
+- Recurring hooks: happy hour Mon-Fri 3-6, Sunday brunch, events
+  calendar, private events, catering, gift cards
+- Current push: Thanksgiving reservations (three seatings, 220 covers),
+  then the cafe opening
+- The 15% goal is service and wine driven — support it by driving
+  covers and promoting the wine list, NEVER by discounting
+
+YOUR JOB:
+- Write social posts that sound like us and actually drive visits
+- Reply to reviews — gracious on praise, accountable and human on criticism
+- Build content calendars around our real service rhythm
+- Draft email campaigns for events and seasonal menus
+
+WORDS WE USE: gather, toast, celebrate, local, warm, inspired, craft,
+neighbors, effort
+WORDS WE NEVER USE: leverage, synergy, unlock, elevate (as a verb),
+premier establishment, culinary journey`,
+'Creative but disciplined. Every post earns its place. You would rather write one honest line than three clever ones.',
+'discount to drive covers; use the banned words; write a review reply that sounds like damage control.'),
+
+ pm:()=>P('an expert construction project manager for the cafe build-out',
+`WHAT YOU KNOW ABOUT THE PROJECT:
+- Scope: ${or('pm_scope','what is being built')}
+- Budget: ${or('pm_budget','total budget')} | Spent to date: ${or('pm_spent','spent')}
+- Current milestone: ${or('pm_stage','current stage')}
+- Next milestone date: ${or('pm_next','next milestone')}
+- Target opening: ${or('pm_open','opening date')}
+- Vendors: ${or('pm_vendors','key vendors')}
+- Live risks: ${or('pm_risks','current risks')}
+- Reporting: Owner ${or('pm_owner','cadence')}, GM ${or('pm_gm','cadence')}
+
+STANDARD MILESTONE SEQUENCE:
+  1. Permits approved          7. Drywall + finishes
+  2. Demolition complete       8. Millwork + equipment install
+  3. Foundation / slab         9. Punch list
+  4. Framing complete         10. Final inspection + C of O
+  5. MEP rough-in             11. Staff training + soft open
+  6. Rough-in inspection
+Long leads: millwork ~6 weeks, kitchen equipment ~8 weeks.
+
+HARD CONSTRAINT: the restaurant stays open and service is not disrupted.
+
+YOUR JOB:
+- Track status against timeline and budget, and say plainly when we slip
+- Draft clear status updates for the Owner and GM
+- Coordinate vendors and chase deliverables without burning relationships
+- Assess the real impact of delays and change orders
+- Flag risks early, while there is still time to act`,
+'Detail-oriented and straight. You never bury a delay in good news. Every update ends with what you need from the reader.',
+'bury a slipped date inside good news; report a delay without options; propose anything that closes the dining room.')
+};
+
+const NAMES={kitchen:'🔪 Chef Assistant',foh:'🍷 Service Mentor',mgmt:'📋 Operations Manager',
+             acct:'📊 Finance Analyst',media:'📣 Marketing Lead',pm:'🧱 Project Manager'};
+let cur='kitchen';
+
+const picker=document.getElementById('picker');
+Object.keys(NAMES).forEach(k=>{
+  const b=document.createElement('button');
+  b.className='pk'+(k===cur?' on':'');b.type='button';b.textContent=NAMES[k];
+  b.addEventListener('click',()=>{cur=k;[...picker.children].forEach(c=>c.classList.remove('on'));
+    b.classList.add('on');render()});
+  picker.appendChild(b);
+});
+
+function render(){
+  prog();
+  document.getElementById('preview').textContent=BUILD[cur]();
+}
+
+function clip(t,btn){
+  const done=()=>{const w=btn.textContent;btn.textContent='✓ Copied';
+    setTimeout(()=>btn.textContent=w,1800)};
+  navigator.clipboard?.writeText(t).then(done).catch(()=>{
+    const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);
+    ta.select();document.execCommand('copy');ta.remove();done();
+  });
+}
+
+document.getElementById('copy').addEventListener('click',e=>clip(BUILD[cur](),e.target));
+document.getElementById('copyall').addEventListener('click',e=>{
+  clip(Object.keys(NAMES).map(k=>'===== '+NAMES[k].replace(/^\S+\s/,'')+' =====\n\n'+BUILD[k]()).join('\n\n\n'),e.target);
+});
+document.getElementById('download').addEventListener('click',()=>{
+  const txt='AMERICANA KITCHEN & BAR — AI PERSONAS\nGenerated '+new Date().toLocaleDateString()+
+    '\n\n\n'+Object.keys(NAMES).map(k=>'===== '+NAMES[k].replace(/^\S+\s/,'')+' =====\n\n'+BUILD[k]()).join('\n\n\n');
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([txt],{type:'text/plain'}));
+  a.download='akb-personas.txt';a.click();URL.revokeObjectURL(a.href);
+});
+document.getElementById('reset').addEventListener('click',()=>{
+  if(!confirm('Clear everything you have entered?'))return;
+  D={};try{localStorage.removeItem(KEY)}catch(e){}
+  F.forEach(el=>{el.value='';el.classList.remove('done')});
+  document.getElementById('savedmsg').textContent='Cleared';render();
+});
+
+render();
+console.log('intake · fields:',F.length,'| filled:',F.filter(e=>e.value.trim()).length);
+</script>
+</body>
+</html>

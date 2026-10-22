@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sessions — AKB Training Lounge</title>
+<meta name="description" content="All three AKB Training Lounge sessions — slides, participant guides, personas, and activity materials for the Americana Kitchen &amp; Bar team.">
+<link rel="icon" href="assets/akb_icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="akb.css">
+<style>
+/* session jump bar */
+.jump{background:var(--akb-cream);border-bottom:1px solid var(--akb-grey);padding:0}
+.jump-in{display:flex;gap:0;flex-wrap:wrap}
+.jump a{flex:1;min-width:200px;padding:22px 18px;text-align:center;text-decoration:none;
+        font-size:.72rem;letter-spacing:1.6px;text-transform:uppercase;color:var(--akb-text);
+        border-right:1px solid var(--akb-grey);transition:all .25s}
+.jump a:last-child{border-right:none}
+.jump a:hover{background:var(--akb-white);color:var(--akb-gold);box-shadow:inset 0 -3px 0 var(--akb-gold)}
+.jump a b{display:block;font-family:var(--font-display);font-size:1.18rem;font-weight:700;
+          letter-spacing:0;text-transform:none;color:var(--akb-black);margin-top:5px}
+.jump a:hover b{color:var(--akb-gold)}
+
+/* session block */
+.session{padding:88px 0;border-bottom:1px solid var(--akb-grey)}
+.session:nth-child(even){background:var(--akb-cream)}
+.s-top{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:start;margin-bottom:34px}
+.s-num{font-family:var(--font-display);font-size:4.4rem;font-weight:700;color:var(--akb-gold);
+       line-height:.9}
+.s-top h2{margin-bottom:12px}
+.s-top .kicker{font-size:.66rem;letter-spacing:2px;text-transform:uppercase;
+               color:var(--akb-gold);margin-bottom:8px}
+.s-lede{font-size:1.04rem;max-width:760px}
+.s-meta{display:flex;gap:22px;flex-wrap:wrap;margin:18px 0 22px;font-size:.7rem;
+        letter-spacing:1.6px;text-transform:uppercase;color:var(--akb-text)}
+.s-meta span{border-left:2px solid var(--akb-gold);padding-left:10px}
+
+/* materials */
+.mat-head{font-size:.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--akb-gold);
+          margin:40px 0 18px;padding-bottom:10px;border-bottom:1px solid var(--akb-grey)}
+.mats{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:18px}
+.mat{display:block;text-decoration:none;background:var(--akb-white);border:1px solid var(--akb-grey);
+     padding:24px 22px;transition:all .25s;position:relative}
+.session:nth-child(even) .mat{background:var(--akb-white)}
+.mat:hover{border-color:var(--akb-gold);transform:translateY(-3px);box-shadow:0 14px 32px rgba(0,0,0,.08)}
+.mat .ic{font-size:1.3rem;display:block;margin-bottom:10px}
+.mat strong{font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:var(--akb-black);
+            display:block;margin-bottom:6px}
+.mat p{font-size:.84rem;color:var(--akb-text);margin-bottom:14px;line-height:1.6}
+.mat .badge{font-size:.6rem;letter-spacing:1.4px;text-transform:uppercase;color:var(--akb-gold);
+            border:1px solid var(--akb-gold);padding:3px 9px;display:inline-block}
+.mat .meta{font-size:.6rem;letter-spacing:1.2px;text-transform:uppercase;
+           color:#6a6a6a;margin-left:8px}
+.mat.soon{opacity:.62}
+.mat.soon:hover{transform:none;border-color:var(--akb-grey);box-shadow:none;cursor:default}
+.mat.soon .badge{color:#6a6a6a;border-color:var(--akb-grey)}
+
+/* learn list */
+.learn{margin-top:40px;background:var(--akb-white);border:1px solid var(--akb-grey);padding:34px 32px}
+.session:nth-child(even) .learn{background:var(--akb-white)}
+.learn h4{margin-bottom:18px}
+.learn ul{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:14px 28px}
+.learn li{position:relative;padding-left:26px;font-size:.93rem}
+.learn li::before{content:"—";position:absolute;left:0;color:var(--akb-gold);font-weight:500}
+
+/* ladder callout */
+.ladder{background:var(--akb-black);color:var(--akb-cream);padding:34px 32px;margin-top:34px;
+        border-left:3px solid var(--akb-gold)}
+.ladder h4{color:var(--akb-cream);margin-bottom:14px}
+.ladder .levels{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:20px}
+.lvl{border:1px solid rgba(191,146,97,.34);padding:16px 14px;background:rgba(255,255,255,.03)}
+.lvl .n{font-size:.6rem;letter-spacing:1.6px;text-transform:uppercase;color:var(--akb-gold)}
+.lvl .t{font-family:var(--font-display);font-size:1.05rem;font-weight:700;margin:5px 0 4px}
+.lvl .p{font-size:.72rem;color:rgba(241,241,241,.66);letter-spacing:1px}
+
+@media(max-width:900px){
+  .s-top{grid-template-columns:1fr;gap:10px}
+  .s-num{font-size:3rem}
+  .learn ul{grid-template-columns:1fr}
+  .ladder .levels{grid-template-columns:repeat(2,1fr)}
+  .jump a{min-width:100%;border-right:none;border-bottom:1px solid var(--akb-grey)}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="topbar">Internal Staff Resource &nbsp;·&nbsp; <b>AKB Training Lounge</b> &nbsp;·&nbsp; East Windsor, NJ</div>
+
+<nav>
+  <div class="wrap nav-in">
+    <a href="index.html"><img src="assets/akb_logo_white.png" alt="Americana Kitchen &amp; Bar — Training Lounge home"></a>
+    <ul class="nav-links">
+      <li><a href="sessions.html" class="active">Sessions</a></li>
+      <li><a href="personas.html">Personas</a></li>
+      <li><a href="cafe.html">Question Café</a></li>
+      <li><a href="intake.html">Intake</a></li>
+      <li><a href="index.html#start">Get Started</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="page-head">
+  <div class="wrap inner">
+    <div class="crumb"><a href="index.html">Home</a> &nbsp;/&nbsp; Sessions</div>
+    <h1>Three Sessions,<em>One Service Standard</em></h1>
+    <p>One hour each, built for every station — designed for all skill levels and packed with materials you can use on your next shift.</p>
+  </div>
+</header>
+
+<div class="jump">
+  <div class="wrap jump-in">
+    <a href="#session-1">Session One<b>Anatomy of a Prompt</b></a>
+    <a href="#session-2">Session Two<b>AI Personas</b></a>
+    <a href="#session-3">Session Three<b>The Prompt Ladder</b></a>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- ============ SESSION 1 ============ -->
+<section class="session" id="session-1">
+  <div class="wrap">
+    <div class="s-top">
+      <div class="s-num">01</div>
+      <div>
+        <div class="kicker">Session One · Foundation</div>
+        <h2>Anatomy of a Prompt</h2>
+        <div class="rule"></div>
+        <p class="s-lede">The foundation session. Understand how AI language models actually work, learn the four building blocks of any great prompt, and explore the differences between ChatGPT, Claude, and Gemini so you can pick the right tool for the job — whether that job is a prep list, a review reply, or a food cost variance.</p>
+        <div class="s-meta">
+          <span>1 Hour</span><span>All Departments</span><span>No Experience Needed</span>
+        </div>
+        <div class="tags">
+          <span class="tag">What is an LLM?</span><span class="tag">Prompt Anatomy</span>
+          <span class="tag">Role</span><span class="tag">Context</span>
+          <span class="tag">Task</span><span class="tag">Format</span>
+          <span class="tag">ChatGPT vs Claude vs Gemini</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mat-head">Session Materials</div>
+    <div class="mats">
+      <a class="mat" href="sessions/s1/deck.html">
+        <span class="ic">📊</span>
+        <strong>Slide Deck</strong>
+        <p>11 slides covering prompt anatomy and LLM differences, with Americana examples throughout.</p>
+        <span class="badge">Slides</span><span class="meta">11 slides</span>
+      </a>
+      <a class="mat" href="sessions/s1/guide.html">
+        <span class="ic">📋</span>
+        <strong>Participant Guide</strong>
+        <p>Printable reference with the four-part framework and a worked example for every station.</p>
+        <span class="badge">Handout</span><span class="meta">Printable</span>
+      </a>
+      <a class="mat" href="sessions/s1/llm-comparison.html">
+        <span class="ic">⚖️</span>
+        <strong>LLM Comparison</strong>
+        <p>ChatGPT, Claude, and Gemini side by side — plus which to reach for on which AKB task.</p>
+        <span class="badge">Resource</span><span class="meta">1 page</span>
+      </a>
+      <a class="mat" href="sessions/s1/facilitator.html">
+        <span class="ic">🎙️</span>
+        <strong>Facilitator Guide</strong>
+        <p>Run of show, scripts, discussion prompts, and troubleshooting for whoever leads it.</p>
+        <span class="badge">Guide</span><span class="meta">Facilitators only</span>
+      </a>
+    </div>
+
+    <div class="learn">
+      <h4>What You'll Learn</h4>
+      <ul>
+        <li>How large language models actually process and answer a prompt</li>
+        <li>The four elements of every effective prompt: Role, Context, Task, Format</li>
+        <li>Key differences between ChatGPT, Claude, and Gemini</li>
+        <li>How to pick the right tool based on the task in front of you</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SESSION 2 ============ -->
+<section class="session" id="session-2">
+  <div class="wrap">
+    <div class="s-top">
+      <div class="s-num">02</div>
+      <div>
+        <div class="kicker">Session Two · Your Secret Weapon</div>
+        <h2>AI Personas</h2>
+        <div class="rule"></div>
+        <p class="s-lede">Turn a generic tool into an Americana expert. Build a reusable persona that tells the AI exactly who it is, what it knows about our menu and our margins, and how to sound — for your specific role. Includes six worked AKB personas and setup instructions for both ChatGPT and Claude.</p>
+        <div class="s-meta">
+          <span>1 Hour</span><span>Role-Specific</span><span>Build Your Own</span>
+        </div>
+        <div class="tags">
+          <span class="tag">What Is a Persona?</span><span class="tag">5 Anatomy Elements</span>
+          <span class="tag">Persona vs Prompt</span><span class="tag">AKB Context</span>
+          <span class="tag">Custom GPTs</span><span class="tag">Claude Projects</span>
+          <span class="tag">Before &amp; After</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mat-head">Session Materials</div>
+    <div class="mats">
+      <a class="mat" href="sessions/s2/deck.html">
+        <span class="ic">📊</span>
+        <strong>Slide Deck</strong>
+        <p>11 slides — what personas are, why they work, and a full walk-through of the Service Mentor.</p>
+        <span class="badge">Slides</span><span class="meta">11 slides</span>
+      </a>
+      <a class="mat" href="personas.html">
+        <span class="ic">🎭</span>
+        <strong>Six AKB Personas</strong>
+        <p>Ready-to-copy personas for Kitchen, Front-of-House, Management, Accounting, Media, and the café build.</p>
+        <span class="badge">Template</span><span class="meta">Copy-ready</span>
+      </a>
+      <a class="mat" href="sessions/s2/template.html">
+        <span class="ic">📝</span>
+        <strong>Blank Persona Template</strong>
+        <p>Build one for any station we haven't covered — five parts, plus the shared Americana context.</p>
+        <span class="badge">Template</span><span class="meta">Printable</span>
+      </a>
+      <a class="mat" href="sessions/s2/facilitator.html">
+        <span class="ic">🎙️</span>
+        <strong>Facilitator Guide</strong>
+        <p>Run of show, live-demo cues, scripts, and troubleshooting.</p>
+        <span class="badge">Guide</span><span class="meta">Facilitators only</span>
+      </a>
+    </div>
+
+    <div class="learn">
+      <h4>What You'll Learn</h4>
+      <ul>
+        <li>What an AI persona is and how it differs from a one-off prompt</li>
+        <li>The five elements: Role, Knowledge, Audience, Tone, Goals &amp; Guardrails</li>
+        <li>How to save a persona in ChatGPT (Custom GPTs) and Claude (Projects)</li>
+        <li>How to build a persona for your own station and daily work</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SESSION 3 ============ -->
+<section class="session" id="session-3">
+  <div class="wrap">
+    <div class="s-top">
+      <div class="s-num">03</div>
+      <div>
+        <div class="kicker">Session Three · Capstone</div>
+        <h2>The Prompt Ladder</h2>
+        <div class="rule"></div>
+        <p class="s-lede">The capstone. Everyone picks a real task from their own job and writes the same prompt four times, adding one expert ingredient each round. Ends with a team vote on the best answer — points, levels, and a winner.</p>
+        <div class="s-meta">
+          <span>1 Hour</span><span>Team Competition</span><span>Bring Real Work</span>
+        </div>
+        <div class="tags">
+          <span class="tag">Gamified Activity</span><span class="tag">4 Levels</span>
+          <span class="tag">Points System</span><span class="tag">Real AKB Scenarios</span>
+          <span class="tag">Peer Voting</span><span class="tag">Debrief</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ladder">
+      <h4>🏆 The Prompt Ladder — 25-Minute Challenge</h4>
+      <p style="color:rgba(241,241,241,.8);font-size:.95rem">Four rounds. Each one adds a single ingredient to the same prompt, so you see exactly what each upgrade buys you. Maximum score: 125 points.</p>
+      <div class="levels">
+        <div class="lvl"><div class="n">Level 1</div><div class="t">The Bare Ask</div><div class="p">10 pts</div></div>
+        <div class="lvl"><div class="n">Level 2</div><div class="t">+ Context</div><div class="p">25 pts</div></div>
+        <div class="lvl"><div class="n">Level 3</div><div class="t">+ Role &amp; Format</div><div class="p">40 pts</div></div>
+        <div class="lvl"><div class="n">Level 4</div><div class="t">+ Persona</div><div class="p">50 pts + vote bonus</div></div>
+      </div>
+    </div>
+
+    <div class="mat-head">Session Materials</div>
+    <div class="mats">
+      <a class="mat" href="sessions/s3/deck.html">
+        <span class="ic">📊</span>
+        <strong>Slide Deck</strong>
+        <p>11 slides — rules, all four rungs worked through on the café build, and the debrief.</p>
+        <span class="badge">Slides</span><span class="meta">11 slides</span>
+      </a>
+      <a class="mat" href="sessions/s3/card.html">
+        <span class="ic">📋</span>
+        <strong>Participant Card</strong>
+        <p>Printable challenge card — four levels with write-in boxes and a scoring tracker.</p>
+        <span class="badge">Handout</span><span class="meta">Printable</span>
+      </a>
+      <a class="mat" href="sessions/s3/example.html">
+        <span class="ic">⭐</span>
+        <strong>Worked Example</strong>
+        <p>Thanksgiving prep climbed all four rungs, showing exactly what each addition buys.</p>
+        <span class="badge">Example</span><span class="meta">Kitchen · 220 covers</span>
+      </a>
+      <a class="mat" href="sessions/s3/leaderboard.html">
+        <span class="ic">🏆</span>
+        <strong>Live Leaderboard</strong>
+        <p>Display-ready scoreboard — click to mark levels, tracks totals and the leader in real time.</p>
+        <span class="badge">Tool</span><span class="meta">Screen display</span>
+      </a>
+      <a class="mat" href="sessions/s3/facilitator.html">
+        <span class="ic">🎙️</span>
+        <strong>Facilitator Guide</strong>
+        <p>Minute-by-minute run of show, scripts, scoring, and troubleshooting.</p>
+        <span class="badge">Guide</span><span class="meta">Facilitators only</span>
+      </a>
+    </div>
+
+    <div class="learn">
+      <h4>What You'll Learn</h4>
+      <ul>
+        <li>How adding context turns a generic answer into a useful one</li>
+        <li>Why format instructions make output usable with no editing</li>
+        <li>How a persona makes the AI sound like Americana, not a generic bot</li>
+        <li>How to build an expert-level prompt from scratch for any real task</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="band-dark">
+  <div class="wrap sec-head" style="margin-bottom:0">
+    <div class="eyebrow">Still Have Questions?</div>
+    <h2>Bring It to the Café</h2>
+    <div class="rule center"></div>
+    <p>Post what you're stuck on. Your Americana colleagues answer, and the best answers get featured for everyone.</p>
+    <div style="margin-top:32px"><a href="cafe.html" class="btn btn-gold">Enter the Café</a></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <img src="assets/akb_logo_white.png" alt="Americana Kitchen &amp; Bar">
+    <ul class="f-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="sessions.html">Sessions</a></li>
+      <li><a href="personas.html">Personas</a></li>
+      <li><a href="cafe.html">Question Café</a></li>
+      <li><a href="intake.html">Intake</a></li>
+      <li><a href="https://americanakitchenandbar.com/">Main Site</a></li>
+    </ul>
+    <div class="legal">© 2026 Americana Kitchen &amp; Bar · East Windsor, NJ · Internal staff training resource</div>
+  </div>
+</footer>
+
+<script>
+// Materials still being built are marked .soon — keep them inert.
+document.querySelectorAll('.mat.soon').forEach(m=>{
+  m.setAttribute('aria-disabled','true');
+  m.title='In production — available before launch';
+});
+console.log('sessions.html · materials:',document.querySelectorAll('.mat').length,
+            '| live:',document.querySelectorAll('.mat:not(.soon)').length,
+            '| in production:',document.querySelectorAll('.mat.soon').length);
+</script>
+</body>
+</html>
